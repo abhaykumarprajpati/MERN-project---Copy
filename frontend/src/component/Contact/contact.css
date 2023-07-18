@@ -1,0 +1,50 @@
+.contact_form>div>input:focus {
+  outline: 0;
+  box-shadow: none;
+}
+
+.contact_form>div>textarea:focus {
+  outline: 0;
+  box-shadow: none;
+}
+
+.contact-form {
+  background-color: #fff;
+  padding: 50px;
+  border-radius: 10px;
+}
+
+.social-media {
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 50px;
+  border-radius: 10px;
+}
+
+.social-media h2 {
+  margin-bottom: 30px;
+  font-weight: bold;
+  font-size: 30px;
+  color: #333;
+}
+
+.social-media ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.social-media ul li {
+  margin: 0 10px;
+}
+
+.social-media ul li a {
+  color: #333;
+  font-size: 24px;
+}
+
+.social-media ul li a:hover {
+  color: #007bff;
+  text-decoration: none;
+}

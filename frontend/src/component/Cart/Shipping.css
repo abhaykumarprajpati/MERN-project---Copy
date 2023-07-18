@@ -1,0 +1,14 @@
+.shippingForm>div>i {
+    position: absolute;
+    transform: translateX(1vmax);
+
+
+}
+
+.shippingForm>div>input {
+    padding: 10px 40px;
+}
+
+.shippingForm>div>select {
+    padding: 10px 40px;
+}

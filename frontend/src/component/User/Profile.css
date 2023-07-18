@@ -1,0 +1,22 @@
+
+
+.btn-custom{
+    background-color: tomato;
+    color: whitesmoke;
+}
+.btn-custom:hover{
+    background-color: #e03819;
+    color: white;
+}
+
+.btn-order{
+    background-color:hsl(0deg 8% 53%);
+    color: whitesmoke;
+    width: 500px;
+    max-width: 100%;
+    
+}
+.btn-order:hover{
+    background-color: hsl(0deg 6% 39%);
+    color: white;
+}

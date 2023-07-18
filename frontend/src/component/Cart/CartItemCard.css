@@ -1,0 +1,25 @@
+.CartItemCard {
+    box-sizing: border-box;
+}
+
+.CartItemCard>img {
+    width: 5vmax;
+}
+
+.CartItemCard>div {
+    margin: 0.3vmax 1vmax;
+}
+
+
+.CartItemCard>div>span {
+    font: 300 0.9vmax "Roboto";
+    color: rgba(24, 24, 24, 0.815);
+}
+
+
+@media screen and (max-width:767px) {
+    .CartItemCard {
+        display: flex;
+        flex-direction: column;
+    }
+}

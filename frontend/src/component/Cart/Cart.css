@@ -1,0 +1,45 @@
+/* .cartGrossTotal{
+    display: grid;
+} */
+.cartGrossTotalBox {
+    border-top: 3px solid tomato;
+    margin: 1vmax 4vmax;
+    box-sizing: border-box;
+    font: 300 1vmax "Roboto";
+    padding: 2vmax 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.checkOutBtn {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.checkOutBtn>button {
+    background-color: tomato;
+    color: white;
+    border: none;
+    padding: 0.8vmax 4vmax;
+    width: 50%;
+    font: 300 0.8vmax "Roboto";
+    margin: 1vmax 4vmax;
+    cursor: pointer;
+    /* border-radius: 30px; */
+}
+
+.cartInput {
+    display: flex;
+    align-items: center;
+}
+
+.border_bottom {
+    border-bottom: 2px solid black;
+    width: 90%;
+    margin: auto;
+    margin-bottom: 20px;
+
+}
+.button_1{
+    border-radius: 0px !important;
+}

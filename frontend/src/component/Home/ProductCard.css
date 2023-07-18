@@ -1,0 +1,42 @@
+.product_name {
+    transition: all 0.3s;
+    color: black;
+
+}
+
+.product_name:hover {
+    color: #2874f0;
+
+}
+
+
+
+
+
+
+
+
+
+@media screen and (max-width:767px) {
+    .card_res {
+        width: 360px !important;
+        max-width: 100%;
+        margin: 10px auto;
+
+
+    }
+
+    .image_cardbody {
+        display: flex;
+
+    }
+
+    .image_cardbody>img {
+        width: 150px;
+        background-repeat: no-repeat;
+        object-fit: cover;
+        background-position: center;
+
+    }
+
+}
