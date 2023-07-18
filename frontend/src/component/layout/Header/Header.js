@@ -99,7 +99,7 @@ const Header = () => {
                 <Link className="nav-link " aria-current="page" to="/">Home</Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/products">Products</Link>
+                <Link className="nav-link" to="/products">Product</Link>
               </li>
               <li className="nav-item">
                 <Link className="nav-link" to="/contact">Contact</Link>
