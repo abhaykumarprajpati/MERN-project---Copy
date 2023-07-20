@@ -40,7 +40,7 @@ const ErrorHandler = require("../utils/errorhandler")
 // };
 
 
-//same code using switch cases
+// same code using switch case
 
 
 
