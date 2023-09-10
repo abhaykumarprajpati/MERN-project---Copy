@@ -4,6 +4,7 @@ const sendToken = (user, statusCode, res) => {
 
 
     const token = user.getJWTToken();
+    console.log('token', token)
 
     //option for cookie //so if we want to send something in cookie so there is options for that
     //so instead of direct writing in cookie we make option variable
@@ -18,7 +19,7 @@ const sendToken = (user, statusCode, res) => {
         ),
         httpOnly: true,
     };
-
+    console.log('options', options)
     res.status(statusCode).cookie("token", token, options).json({
         success: true,
         user,

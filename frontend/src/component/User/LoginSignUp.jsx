@@ -83,16 +83,18 @@ const LoginSignUp = ({ }) => {
         }
     };
     const location = useLocation();
+    console.log('test_loginPageLoction',location.search)
     const redirect = location.search ? location.search.split("=")[1] : "/account";
     //location.search.split("=")[1] this means we got shipping from=  navigate("/login?redirect=shipping") in cart.jsx page
     useEffect(() => {
         if (error) {
+            console.log('test_loginPageError', error);
             alert.error(error);
             dispatch(clearErrors())
         }
         if (isAuthenticated) {
             // navigate("/account") //Earlier
-            console.log("login page")
+            console.log("test_loginPage")
             navigate(redirect) //Now
         }
 

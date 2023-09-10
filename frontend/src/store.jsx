@@ -20,6 +20,7 @@ import { cartReducer } from "./reducers/cartReducer";
 import { load } from "webfontloader";
 import { allOrdersReducer, myOrdersReducer, newOrderReducer, orderDetailsReducer, orderReducer, returnReducer } from "./reducers/orderReducer";
 
+console.log('debugging  store 1')
 
 const reducer = combineReducers({
     products: productsReducer,
@@ -48,12 +49,15 @@ const reducer = combineReducers({
 
 
 // let initialState = {}; // this changes after making cartreducer and cartAction
+
 let initialState = {
     cart: {
         cartItems: localStorage.getItem("cartItems") ? JSON.parse(localStorage.getItem("cartItems")) : [],
         shippingInfo: localStorage.getItem("shippingInfo") ? JSON.parse(localStorage.getItem("shippingInfo")) : {},
     }
-}
+};
+console.log('checking initial state', initialState.cart.cartItems)
+
 
 const middleware = [thunk];
 

@@ -48,11 +48,13 @@ export const userReducer = (state = { user: {} }, action) => {
         case LOGIN_REQUEST:
         case REGISTER_USER_REQUEST:
         case LOAD_USER_REQUEST:
+            console.log('test_debug3');
 
             return {
                 loading: true,
                 isAuthenticated: false,
             }
+            
 
         case LOGIN_SUCCESS:
         case REGISTER_USER_SUCCESS:
@@ -76,6 +78,7 @@ export const userReducer = (state = { user: {} }, action) => {
 
         case LOGIN_FAIL:
         case REGISTER_USER_FAIL:
+            console.log('test_loginfail',action.payload);
             return {
                 ...state,
                 loading: false,
@@ -85,6 +88,7 @@ export const userReducer = (state = { user: {} }, action) => {
             };
 
         case LOAD_USER_FAIL:
+            console.log('test_loaduserfail',action.payload);
             return {
                 loading: false,
                 isAuthenticated: false,

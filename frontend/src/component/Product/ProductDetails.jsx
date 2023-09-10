@@ -26,9 +26,6 @@ import { NEW_REVIEW_RESET } from '../../constants/productConstants';
 
 
 
-
-
-
 const ProductDetails = () => {
     const dispatch = useDispatch();
     const alert = useAlert();

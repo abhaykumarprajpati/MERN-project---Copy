@@ -98,7 +98,7 @@ exports.loginUser = catchAsyncErrors(async (req, res, next) => {
 //Logout User
 
 exports.logout = catchAsyncErrors(async (req, res, next) => {
-    res.cookie("token", null, {
+    res.cookie("token", "null", {
         expire: new Date(Date.now()),
         httpOnly: true,
     });
@@ -126,7 +126,8 @@ exports.forgotPassword = catchAsyncErrors(async (req, res, next) => {
     //we got password and we save it also now what we do we make a link which send in mail
 
     // const resetPasswordUrl =` http://localhost/api/v1/password/reset/${resetToken}`
-    const resetPasswordUrl = ` ${process.env.FRONTEND_URL}/password/reset/${resetToken}` // req.get("host") this gives us host name
+    // const resetPasswordUrl = ` ${process.env.FRONTEND_URL}/password/reset/${resetToken}` // req.get("host") this gives us host name
+    const resetPasswordUrl = ` ${req.protocol}://${req.get('host')}/password/reset/${resetToken}`
     // req.protocol means whether it http or https , it accept
 
     // now we create email which we sent to our customers
@@ -158,6 +159,7 @@ exports.forgotPassword = catchAsyncErrors(async (req, res, next) => {
         await user.save({ validateBeforeSave: false });
 
         return next(new ErrorHandler(error.message, 500));
+
 
     }
 })
@@ -195,6 +197,7 @@ exports.resetPassword = catchAsyncErrors(async (req, res, next) => {
 // Get User Detail
 
 exports.getUserDetails = catchAsyncErrors(async (req, res, next) => {
+    console.log('test_getuserdetails');
     const user = await User.findById(req.user.id);
 
     // if(!user){ // not need here because it is not possible that user not get his details because this route only access to those who logged in
@@ -239,7 +242,8 @@ exports.updatePassword = catchAsyncErrors(async (req, res, next) => {
 //Update User Profile
 exports.updateProfile = catchAsyncErrors(async (req, res, next) => {
 
-
+    console.log("test_updateprofile", req.user)
+    console.log("test_reqSuccess", req.success)
     const newUserData = {
         name: req.body.name,
         email: req.body.email,
@@ -253,6 +257,7 @@ exports.updateProfile = catchAsyncErrors(async (req, res, next) => {
         const imageId = user.avatar.public_id;
 
         await cloudinary.v2.uploader.destroy(imageId);
+
         const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
             folder: "avatars",
             width: 150,

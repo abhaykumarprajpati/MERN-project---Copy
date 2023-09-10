@@ -12,8 +12,10 @@ import axios from "axios";
 export const addItemsToCart = (id, quantity) => async (dispatch, getState) => {
 
     const { data } = await axios.get(`/api/v1/product/${id}`);
+    console.log('pointer 1')
     dispatch({
-        type: ADD_TO_CART, payload: {
+        type: ADD_TO_CART,
+        payload: {
             product: data.product._id,
             name: data.product.name,
             price: data.product.price,
@@ -23,18 +25,20 @@ export const addItemsToCart = (id, quantity) => async (dispatch, getState) => {
         }
     });
 
-
-
+    // console.log('debugging  in cartaction', getState().cart.cartItems)
+    console.log('pointer 2')
     localStorage.setItem("cartItems", JSON.stringify(getState().cart.cartItems));
 }
 
 //REMOVE FROM CART
 //we give only  id  of product which we want to remove from cart 
 export const removeItemsFromCart = (id) => async (dispatch, getState) => {
+    console.log('again debug cartaction 1')
     dispatch({
         type: REMOVE_CART_ITEM,
         payload: id, //we are sending id via payload
     })
+    console.log('again debug cartaction 2')
     localStorage.setItem("cartItems", JSON.stringify(getState().cart.cartItems));
 
 };

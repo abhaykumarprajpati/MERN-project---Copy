@@ -89,7 +89,7 @@ export const getAdminProduct = () => async (dispatch) => {
             type: ADMIN_PRODUCT_SUCCESS,
             payload: data.products,
         })
-        console.log('adminproducts',data.products);
+        console.log('adminproducts', data.products);
 
     } catch (error) {
         dispatch({
@@ -109,7 +109,7 @@ export const createProduct = (productData) => async (dispatch) => {
         const config = {
             headers: { "Content-Type": "application/json" },
         }
-        
+
         const { data } = await axios.post(`/api/v1/admin/product/new`, productData, config);
         console.log(data);
         console.log("product action page")
@@ -243,7 +243,7 @@ export const getAllReviews = (id) => async (dispatch) => {
         const { data } = await axios.get(`/api/v1/reviews?id=${id}`);
 
 
-        console.log(data)
+        console.log('get all reviews', data)
 
         dispatch({
             type: ALL_REVIEW_SUCCESS,

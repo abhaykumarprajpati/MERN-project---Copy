@@ -19,7 +19,7 @@ const cloudinary = require("cloudinary") // this is used here when creating admi
 //catchAsyncErrors is ease to use instead try and catch 
 //now if we dont post name or any other field, it shows us success: false and message: please enter name
 exports.createProduct = catchAsyncErrors(async (req, res, next) => {
-
+    console.log('checking user in req', req.user);
     //done when creating admin panel
 
     let images = [];
@@ -54,7 +54,7 @@ exports.createProduct = catchAsyncErrors(async (req, res, next) => {
     req.body.user = req.user.id;
 
     const product = await Product.create(req.body);// user sends data , so that product will create
-    console.log("this is product category", product.category)
+
 
     res.status(201).json({
         success: true,
@@ -70,13 +70,9 @@ exports.getAllProducts = catchAsyncErrors(async (req, res, next) => {
     const productsCount = await Product.countDocuments();
     const apiFeature = new ApiFeatures(Product.find(), req.query).search().filter().pagination(resultPerPage)
 
-
-
     let products = await apiFeature.query;
 
     let filteredProductsCount = products.length;
-
-
 
     res.status(200).json({
         success: true,
@@ -132,6 +128,7 @@ exports.getAdminProducts = catchAsyncErrors(async (req, res, next) => {
 exports.getProductDetails = catchAsyncErrors(async (req, res, next) => {
 
 
+    console.log('getProduct details working')
     const product = await Product.findById(req.params.id);
 
     // if (!product) {
@@ -140,6 +137,7 @@ exports.getProductDetails = catchAsyncErrors(async (req, res, next) => {
     //         message: "Product not found"
     //     })
     // } 
+
     if (!product) {
         return next(new ErrorHandler("Product not found", 404));
     }
@@ -237,7 +235,9 @@ exports.deleteProduct = catchAsyncErrors(async (req, res, next) => {
 
 // Create New Review or Update the review
 exports.createProductReview = catchAsyncErrors(async (req, res, next) => {
+
     const { rating, comment, productId } = req.body;
+
     const review = {
         user: req.user._id,
         name: req.user.name,
@@ -248,9 +248,12 @@ exports.createProductReview = catchAsyncErrors(async (req, res, next) => {
 
     const product = await Product.findById(productId);
 
+
     const isReviewed = product.reviews.find(rev => rev.user.toString() === req.user._id.toString())
+    console.log('isreviewed', isReviewed);
 
     if (isReviewed) {
+        console.log('if part of isreviewed');
         product.reviews.forEach((rev) => {
             if (rev.user.toString() === req.user._id.toString()) {
                 rev.rating = rating,
@@ -260,8 +263,9 @@ exports.createProductReview = catchAsyncErrors(async (req, res, next) => {
 
     }
     else {
+        console.log('else part of isreviewed');
         product.reviews.push(review)
-        
+
         product.numofReviews = product.reviews.length
     }
     // 4, 5,5,2 =16/4=4
@@ -285,7 +289,7 @@ exports.createProductReview = catchAsyncErrors(async (req, res, next) => {
 
 exports.getProductReviews = catchAsyncErrors(async (req, res, next) => {
     const product = await Product.findById(req.query.id);
-    console.log("this is product", product)
+    console.log("Get Product Review ")
 
 
 

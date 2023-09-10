@@ -14,7 +14,7 @@ import { useAlert } from 'react-alert';
 const Header = () => {
   const location = useLocation()
   const { isAuthenticated, user } = useSelector((state) => state.user)
-
+  console.log('test_userRole', user && user?.role);
   const { cartItems } = useSelector((state) => state.cart)
   // const {loading , isAuthenticated , user} = useSelector((state)=> state.user);
   const [keyword, setKeyword] = useState("");

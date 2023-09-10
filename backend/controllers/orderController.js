@@ -80,6 +80,7 @@ exports.getSingleOrder = catchAsyncErrors(async (req, res, next) => {
         "name email"
     );
 
+    console.log('Get single order **********************', order)
     if (!order) {
         return next(new ErrorHandler("Order not found with this Id", 404));
     }
@@ -97,8 +98,6 @@ exports.getSingleOrder = catchAsyncErrors(async (req, res, next) => {
 exports.myOrders = catchAsyncErrors(async (req, res, next) => {
     const orders = await Order.find({ user: req.user._id });
 
-
-
     res.status(200).json({
         success: true,
         orders
@@ -109,7 +108,7 @@ exports.myOrders = catchAsyncErrors(async (req, res, next) => {
 //Get All Orders  --Admin
 exports.getAllOrders = catchAsyncErrors(async (req, res, next) => {
     const orders = await Order.find();
-    console.log("this is orders", orders)
+
 
     let totalAmount = 0;
 
@@ -126,8 +125,9 @@ exports.getAllOrders = catchAsyncErrors(async (req, res, next) => {
 });
 //Update Order Status  --Admin
 exports.updateOrder = catchAsyncErrors(async (req, res, next) => {
+
     const order = await Order.findById(req.params.id);  // we get the order
-    console.log("this is order", order)
+
     if (!order) {
         return next(new ErrorHandler("Order not found with this Id", 404));
     }

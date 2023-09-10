@@ -9,6 +9,7 @@ import {
     CardExpiryElement,
     useStripe,
     useElements,
+
 } from "@stripe/react-stripe-js";
 
 import axios from 'axios';
@@ -27,9 +28,10 @@ const Payment = () => {
 
 
     const stripe = useStripe();
+    const elements = useElements();
 
     const alert = useAlert();
-    const elements = useElements();
+
 
     const navigate = useNavigate();
 
@@ -58,9 +60,11 @@ const Payment = () => {
 
 
     const submitHandler = async (e) => {
+
         e.preventDefault();
 
         payBtn.current.disabled = true;// by doing payBtn.current we can access html property
+
         try {
             const config = {
                 headers: {
@@ -72,47 +76,70 @@ const Payment = () => {
                 config
             );
             const client_secret = data.client_secret;
-            if (!stripe || !elements) return;
-            const result = await stripe.confirmCardPayment(client_secret, {
-                payment_method: {
-                    card: elements.getElement(CardNumberElement),
-                    billing_details: {
-                        name: user.name,
-                        email: user.email,
-                        address: {
-                            line1: shippingInfo.address,
-                            city: shippingInfo.city,
-                            state: shippingInfo.state,
-                            postal_code: shippingInfo.pinCode,
-                            country: shippingInfo.country,
+
+            if (!stripe || !elements)
+
+                return;
+
+            const result = await stripe.confirmCardPayment(
+                client_secret,
+
+                // confirmParams: {
+                //     // return_url: 'https://example.com/order/123/complete',
+                //     return_url: 'http://localhost:3000/success',
+                // }
+
+
+
+
+                {
+                    payment_method: {
+                        card: elements.getElement(CardNumberElement),
+                        billing_details: {
+                            name: user.name,
+                            email: user.email,
+                            address: {
+                                line1: shippingInfo.address,
+                                city: shippingInfo.city,
+                                state: shippingInfo.state,
+                                postal_code: shippingInfo.pinCode,
+                                country: shippingInfo.country,
+                            }
                         }
                     }
+
                 }
-            });
+
+
+            );
+
             if (result.error) {
+
                 payBtn.current.disabled = false;
                 alert.error(result.error.message);
             } else {
+
                 if (result.paymentIntent.status === "succeeded") {
                     order.paymentInfo = { // order is placed here
                         id: result.paymentIntent.id,
                         status: result.paymentIntent.status,
                     };
-                    console.log("I am Order", order);
+
                     dispatch(createOrder(order));
 
 
 
                     navigate("/success");
+                    // window.location.href = 'http://localhost:3000/success'
                 } else {
                     alert.error("There's some issue while processing payment")
                 }
             }
 
+        }
 
+        catch (error) {
 
-
-        } catch (error) {
             payBtn.current.disabled = false;
             alert.error(error.response.data.message)
 

@@ -2,13 +2,19 @@ const express = require("express");
 const bodyParser = require("body-parser")
 const cookieParser = require("cookie-parser")
 const fileUpload = require("express-fileupload")
-const dotenv = require("dotenv");
+// const dotenv = require("dotenv");
+const path = require('path')
 
 
 
 //Config
 
-dotenv.config({ path: "backend/config/config.env" })
+// dotenv.config({ path: "backend/config/config.env" })
+if (process.env.NODE_ENV !== "PRODUCTION") {
+
+    // dotenv.config({ path: "backend/config/config.env" })
+    require('dotenv').config({ path: "backend/config/config.env" })
+}
 const errorMiddleware = require("./middleware/error")
 
 const app = express();
@@ -27,12 +33,20 @@ const product = require("./routes/productRoute");
 const user = require("./routes/userRoute");
 const order = require("./routes/orderRoute");
 const payment = require("./routes/paymentRoute");
+const category = require("./routes/categoryRoute")
 
 
 app.use("/api/v1", product);
 app.use("/api/v1", user);
 app.use("/api/v1", order);
-app.use("/api/v1", payment)
+app.use("/api/v1", payment);
+app.use("/api/v1", category);
+
+app.use(express.static(path.join(__dirname, "../frontend/build")))
+
+app.get('*', (req, res) => {
+res.sendFile(path.resolve(__dirname, "../frontend/build/index.html"))
+})
 
 //Middleware for Errors
 app.use(errorMiddleware)

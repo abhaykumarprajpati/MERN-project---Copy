@@ -57,7 +57,7 @@ function App() {
 
 
     const { isAuthenticated, user } = useSelector((state) => state.user)
-
+    console.log('testisAuthenticated', isAuthenticated);
     const [stripeApikey, setStripeApikey] = useState("");
 
     async function getStripeApiKey() {

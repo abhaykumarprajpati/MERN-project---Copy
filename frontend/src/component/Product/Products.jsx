@@ -51,7 +51,7 @@ const Products = () => {
 
 
 
-
+console.log('selectedItem',selectedItem)
 
 
     const { products,
@@ -66,16 +66,17 @@ const Products = () => {
 
     const handleexchange = (item) => {
         if (selectedItem.includes(item)) {
-
+            console.log('selectedItem.includes(item)',item);
             setSelectedItem(selectedItem.filter((i) => i !== item));
 
         } else {
+            console.log('selectedItem.includes(item)2',item);
 
             setSelectedItem([...selectedItem, item]);
 
         }
     }
-    
+
 
 
 
@@ -105,24 +106,15 @@ const Products = () => {
             dispatch(clearErrors());
         }
 
-
-
         if (selectedItem.length === 0) {
             dispatch(getProduct(keyword, currentPage, price, null, ratings));
 
         } else {
 
-
             console.log(selectedItem);
             dispatch(getProduct(keyword, currentPage, price, selectedItem, ratings));
 
         }
-
-
-
-
-
-
 
     }, [dispatch, keyword, currentPage, price, selectedItem, ratings, alert, error]);
 
@@ -141,18 +133,6 @@ const Products = () => {
         }
 
     }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -197,8 +177,6 @@ const Products = () => {
                                                                 type="checkbox"
                                                                 checked={selectedItem.includes(item)}
                                                                 onChange={() => handleexchange(item, category)}
-
-
 
                                                             />
                                                             {item}

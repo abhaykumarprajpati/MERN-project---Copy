@@ -30,15 +30,14 @@ class ApiFeatures {
     filter() {
         //  const queryCopy ={this.queryStr}
         const queryCopy = { ...this.queryStr }
-        console.log("query copy 1", queryCopy)
+       
 
         // console.log(queryCopy)
         //Removing some fields for category
         const removeFields = ["keyword", "page", "limit"];
 
         removeFields.forEach(key => delete queryCopy[key])
-        console.log("this is removefields", removeFields)
-        console.log("this is query copy", queryCopy)
+       
         //eg: queryCopy -- {category:"laptop"}
 
         //Filter for Price and Rating
