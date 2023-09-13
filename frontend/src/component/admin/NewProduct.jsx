@@ -9,6 +9,7 @@ import MetaData from '../layout/MetaData'
 import { NEW_PRODUCT_RESET } from '../../constants/productConstants'
 import Offcanvas from './Offcanvas'
 import Sidebar from './Sidebar'
+import axios from 'axios'
 
 
 
@@ -29,11 +30,12 @@ const NewProduct = () => {
     const [Stock, setStock] = useState(0)
     const [images, setImages] = useState([])
     const [imagesPreview, setImagesPreview] = useState([])
-    // const [item, setItem] = useState("")
-    // const [category, setCategory] = useState("")
-    const [selectedItem, setselectedItem] = useState("");
-    const [category, setcategory] = useState("");
 
+    const [selectedItem, setselectedItem] = useState(false);
+    const [category, setcategory] = useState("");
+    const [newCategory, setNewCategory] = useState([])
+    const [subcategories, setsubcategories] = useState([])
+    const [selectedCategoryName, setSelectedCategoryName] = useState("")
 
 
 
@@ -51,7 +53,16 @@ const NewProduct = () => {
 
     ]
 
+    const getCategory = async () => {
+        const { data } = await axios.get(`/api/v1/getAllCategories`)
+
+        setNewCategory(data)
+        console.log('new Category', data);
+    }
+
     useEffect(() => {
+        console.log('new Category1')
+        getCategory();
         if (error) {
             alert.error(error);
             dispatch(clearErrors())
@@ -76,7 +87,7 @@ const NewProduct = () => {
         myForm.set("description", description);
         // myForm.set("category", category);
         // myForm.set("selectedCategory", selectedCategory)
-        myForm.set("selectedItem", selectedItem)
+        // myForm.set("selectedItem", selectedItem)
 
         console.log(category)
 
@@ -92,7 +103,7 @@ const NewProduct = () => {
 
     const createProductImagesChange = (e) => {
         const files = Array.from(e.target.files); // array.from creates a copy  of an array 
-
+        console.log('files', files)
         setImages([]);
         setImagesPreview([]);
 
@@ -112,8 +123,14 @@ const NewProduct = () => {
 
     }
 
-    function handleCategoryChange(event) {
-        setselectedItem(event.target.value);
+    async function handleCategoryChange(event) {
+        console.log('checking category', event.target.value)
+
+        const { data } = await axios.get(`/api/v1/subcategory/${event.target.value}`);
+        console.log('subcategories based on parent id', data?.data)
+        
+        setsubcategories(data?.data);
+        setselectedItem(true)
         setcategory("");
     }
 
@@ -178,34 +195,31 @@ const NewProduct = () => {
 
                             <select id="category-select" className='category' onChange={handleCategoryChange} >
                                 <option value="">--Please choose a category--</option>
-                                {categories.map((category) => (
-                                    <option key={Object.keys(category)[0]} value={Object.keys(category)[0]}>
-                                        {Object.keys(category)[0]}
+                                {newCategory.map((category) => (
+
+                                    <option key={category._id} value={category._id}>
+                                        {category.name}
                                     </option>
                                 ))}
                             </select>
 
-
                             {selectedItem && (
                                 <div>
                                     <div>
-                                        <p>Items in {selectedItem} category:</p>
+                                        {/* <p>Items in {selectedItem} category:</p> */}
+                                        <p>Items in {selectedCategoryName} category:</p>
                                         <select className='category' onChange={(e) => handleItemClick(e.target.value)}>
-                                            <option disabled selected value> -- Select an item -- </option>
-                                            {categories
-                                                .find((category) => Object.keys(category)[0] === selectedItem)[selectedItem]
-                                                .map((item) => (
-                                                    <option key={item} value={item}>
-                                                        {item}
-                                                    </option>
-                                                ))}
+                                            <option value=""> -- Select an item -- </option>
+                                            {subcategories?.map((category) => (
+
+                                                <option key={category._id} value={category._id}>
+                                                    {category.sub_category}
+                                                </option>
+                                            ))}
                                         </select>
                                     </div>
                                 </div>
                             )}
-
-                            {category && <p>You have selected: {category}</p>}
-
 
 
 

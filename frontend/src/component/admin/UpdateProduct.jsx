@@ -89,7 +89,7 @@ const UpdateProduct = () => {
         if (isUpdated) {
 
             alert.success("Product Updated Successfully")
-        
+
             navigate("/admin/products")
             dispatch({ type: UPDATE_PRODUCT_RESET })
 
@@ -114,7 +114,7 @@ const UpdateProduct = () => {
             myForm.append("images", image)
         });
         dispatch(updateProduct(id, myForm))
-        
+
 
     }
 

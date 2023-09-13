@@ -1,17 +1,27 @@
-// models/Category.js
 const mongoose = require('mongoose');
+const Subcategory = require('./subCategoryModel')
 
 const categorySchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
   },
-  // subcategories: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Subcategory' }],
-  subcategories: [{
-    _id: mongoose.Schema.Types.ObjectId,
-    name: String,
-    parentCategory: mongoose.Schema.Types.ObjectId,
-  }],
+  user: {
+    type: mongoose.Schema.ObjectId,
+    ref: "User",
+    required: true,
+  },
+
+
+  // subcategories: [
+  //   {
+
+  //     name: {
+  //       type: String,
+  //       required: true,
+  //     }
+  //   },
+  // ]
 });
 
 const Category = mongoose.model('Category', categorySchema);

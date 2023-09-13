@@ -43,9 +43,9 @@ const ProductReviews = () => {
   };
 
   useEffect(() => {
-    if (productId.length === 24) {
-      dispatch(getAllReviews(productId));
-    }
+    // if (productId.length === 24) {
+    //   dispatch(getAllReviews(productId));
+    // }
     if (error) {
       alert.error(error);
       dispatch(clearErrors());

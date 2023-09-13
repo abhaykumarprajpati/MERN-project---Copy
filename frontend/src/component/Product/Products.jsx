@@ -12,6 +12,7 @@ import Typography from "@material-ui/core/Typography";
 import { useAlert } from 'react-alert';
 import MetaData from '../layout/MetaData';
 import { useNavigate } from "react-router-dom"
+import axios from 'axios';
 
 
 
@@ -44,6 +45,7 @@ const Products = () => {
     const [price, setPrice] = useState([0, 25000]);
 
 
+
     const [selectedItem, setSelectedItem] = useState([]);
 
     const [ratings, setRatings] = useState(0);
@@ -51,7 +53,7 @@ const Products = () => {
 
 
 
-console.log('selectedItem',selectedItem)
+    console.log('selectedItem', selectedItem)
 
 
     const { products,
@@ -66,11 +68,11 @@ console.log('selectedItem',selectedItem)
 
     const handleexchange = (item) => {
         if (selectedItem.includes(item)) {
-            console.log('selectedItem.includes(item)',item);
+            console.log('selectedItem.includes(item)', item);
             setSelectedItem(selectedItem.filter((i) => i !== item));
 
         } else {
-            console.log('selectedItem.includes(item)2',item);
+            console.log('selectedItem.includes(item)2', item);
 
             setSelectedItem([...selectedItem, item]);
 
@@ -100,6 +102,8 @@ console.log('selectedItem',selectedItem)
 
     let count = filteredProductsCount;
 
+    
+
     useEffect(() => {
         if (error) {
             alert.error(error);
@@ -107,11 +111,13 @@ console.log('selectedItem',selectedItem)
         }
 
         if (selectedItem.length === 0) {
+            
             dispatch(getProduct(keyword, currentPage, price, null, ratings));
 
         } else {
 
-            console.log(selectedItem);
+
+
             dispatch(getProduct(keyword, currentPage, price, selectedItem, ratings));
 
         }

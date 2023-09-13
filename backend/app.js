@@ -18,7 +18,9 @@ if (process.env.NODE_ENV !== "PRODUCTION") {
 const errorMiddleware = require("./middleware/error")
 
 const app = express();
-
+// app.use(express.bodyParser({limit: '50mb'}))
+// Configure body-parser to handle JSON request bodies with a size limit of 50MB
+app.use(bodyParser.json({ limit: '50mb' }));
 
 app.use(express.json());
 app.use(cookieParser());
@@ -33,7 +35,8 @@ const product = require("./routes/productRoute");
 const user = require("./routes/userRoute");
 const order = require("./routes/orderRoute");
 const payment = require("./routes/paymentRoute");
-const category = require("./routes/categoryRoute")
+const category = require("./routes/categoryRoute");
+const subcategory = require("./routes/subcategoryRoute")
 
 
 app.use("/api/v1", product);
@@ -41,11 +44,12 @@ app.use("/api/v1", user);
 app.use("/api/v1", order);
 app.use("/api/v1", payment);
 app.use("/api/v1", category);
+app.use("/api/v1", subcategory)
 
 app.use(express.static(path.join(__dirname, "../frontend/build")))
 
 app.get('*', (req, res) => {
-res.sendFile(path.resolve(__dirname, "../frontend/build/index.html"))
+    res.sendFile(path.resolve(__dirname, "../frontend/build/index.html"))
 })
 
 //Middleware for Errors

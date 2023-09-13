@@ -32,10 +32,7 @@ const productSchema = new mongoose.Schema({
             },
         },
     ],
-    // category: {
-    //     type: String,
-    //     required: [true, "Please enter product selectedItem"],
-    // },
+   
     selectedItem: {
         type: String,
         required: [true, "Please enter product selectedItem"],
@@ -72,6 +69,7 @@ const productSchema = new mongoose.Schema({
             }
         },
     ],
+
 
     user: {
         type: mongoose.Schema.ObjectId,

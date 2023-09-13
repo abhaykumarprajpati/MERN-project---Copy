@@ -20,6 +20,9 @@ import {
 import { Rating } from "@material-ui/lab"
 import { NEW_REVIEW_RESET } from '../../constants/productConstants';
 
+import iphone from '../../images/iphone.jpg'
+import motorola from '../../images/motorola.jpg'
+import oppo from '../../images/oppo.jpg'
 
 
 
@@ -109,6 +112,7 @@ const ProductDetails = () => {
         }
 
         dispatch(getProductDetails(id))
+
         // in backend like for access id req.params.id , In frontend it is match.params.id
 
     }, [dispatch, id, error, alert, reviewError, success])
@@ -127,40 +131,45 @@ const ProductDetails = () => {
 
                         <div className="row mt-5">
                             <div className="col-lg-7 col-12 p-1">
-                                {
-                                    product.images &&
-                                    product.images.map((item, i) => (
-                                        <div id="carouselExampleControlsNoTouching" className="carousel slide" data-bs-touch="false" key={i}>
-                                            <div className="carousel-inner">
-                                                <div className="carousel-item active">
-                                                    <img className="d-block w-100" src={item.url}
-                                                        alt={`${i} Slide`} />
-                                                </div>
-                                                <div className="carousel-item">
-                                                    <img className="d-block w-100" src={item.url}
-                                                        alt={`${i} Slide`} />
-                                                </div>
-                                                <div className="carousel-item">
-                                                    <img className="d-block w-100" src={item.url}
-                                                        alt={`${i} Slide`} />
-                                                </div>
-                                            </div>
-                                            <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide="prev">
-                                                <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-                                                <span className="visually-hidden">Previous</span>
-                                            </button>
-                                            <button className="carousel-control-next" type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide="next">
-                                                <span className="carousel-control-next-icon" aria-hidden="true"></span>
-                                                <span className="visually-hidden">Next</span>
-                                            </button>
+
+                                <div id="carouselExampleControlsNoTouching" className="carousel slide" data-bs-touch="false" data-bs-interval="false">
+                                    <div className="carousel-inner">
+                                        {
+                                            product.images &&
+                                            product.images.map((item, i) => {
+
+                                                console.log('checking images', item);
+                                                return (
+                                                    <div className="carousel-item active" key={i}>
+                                                        <img className="d-block w-100" src={item.url}
+                                                        />
+                                                    </div>
+                                                )
+                                            }
+                                            )
+                                        }
+                                        {/* <div class="carousel-item active">
+                                            <img src={iphone} class="d-block w-100" alt="..." />
                                         </div>
-                                        /* <img
-                                            key={item.url}
-                                            src={item.url}
-                                            alt={`${i} Slide`}
-                                        /> */
-                                    ))
-                                }
+                                        <div class="carousel-item">
+                                            <img src={motorola} class="d-block w-100" alt="..." />
+                                        </div>
+                                        <div class="carousel-item">
+                                            <img src={oppo} class="d-block w-100" alt="..." />
+                                        </div> */}
+
+                                    </div>
+                                    <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide="prev">
+                                        <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span className="visually-hidden">Previous</span>
+                                    </button>
+                                    <button className="carousel-control-next" type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide="next">
+                                        <span className="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span className="visually-hidden">Next</span>
+                                    </button>
+                                </div>
+
+
 
                             </div>
 

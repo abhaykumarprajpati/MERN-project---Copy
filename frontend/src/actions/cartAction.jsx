@@ -12,7 +12,7 @@ import axios from "axios";
 export const addItemsToCart = (id, quantity) => async (dispatch, getState) => {
 
     const { data } = await axios.get(`/api/v1/product/${id}`);
-    console.log('pointer 1')
+   
     dispatch({
         type: ADD_TO_CART,
         payload: {
@@ -26,7 +26,7 @@ export const addItemsToCart = (id, quantity) => async (dispatch, getState) => {
     });
 
     // console.log('debugging  in cartaction', getState().cart.cartItems)
-    console.log('pointer 2')
+   
     localStorage.setItem("cartItems", JSON.stringify(getState().cart.cartItems));
 }
 

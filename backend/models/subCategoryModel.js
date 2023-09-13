@@ -2,11 +2,19 @@
 const mongoose = require('mongoose');
 
 const subcategorySchema = new mongoose.Schema({
-  name: {
+  category_id: {
     type: String,
+    required: true
+  },
+  sub_category: {
+    type: String,
+    required: true
+  },
+  user: {
+    type: mongoose.Schema.ObjectId,
+    ref: "User",
     required: true,
   },
-  parentCategory: { type: mongoose.Schema.Types.ObjectId, ref: 'Category' },
 });
 
 const Subcategory = mongoose.model('Subcategory', subcategorySchema);

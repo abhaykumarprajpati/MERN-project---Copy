@@ -1,35 +1,67 @@
-// controllers/categoryController.js
-// const Category = require('../models/Category');
-const Category = require('../models/categoryModel')
-// const Subcategory = require('../models/Subcategory');
-const Subcategory = require('../models/subCategoryModel');
 
-exports.createCategory = async (req, res) => {
-    try {
-        const { name } = req.body;
-        const category = new Category({ name });
-        await category.save();
-        res.json(category);
-    } catch (error) {
-        res.status(500).json({ error: 'Error creating category' });
+const ErrorHandler = require("../utils/errorhandler")
+const catchAsyncErrors = require("../middleware/catchAsyncErrors")
+const Subcategory = require("../models/subCategoryModel")
+const Category = require('../models/categoryModel'); // Import your category model
+
+// Create a new category
+exports.createCategory = catchAsyncErrors(async (req, res) => {
+
+    const { name } = req.body;
+    const user = req.user.id;
+    const category = new Category({ name, user });
+    await category.save();
+    res.status(201).json(category);
+
+});
+
+// Create a subcategory within a category
+
+
+exports.deleteSubcategory = catchAsyncErrors(async (req, res, next) => {
+    const category = await Category.findById(req.query.categoryId)
+
+
+    if (!category) {
+        return next(new ErrorHandler("Category not found", 404))
     }
-};
 
-exports.createSubcategory = async (req, res) => {
-    try {
-        const { name, parentCategory } = req.body;
-        const subcategory = new Subcategory({ name, parentCategory });
-        await subcategory.save();
-        console.log('subcategory data', subcategory)
+    const subcategories = category.subcategories.filter(rev => rev._id.toString() !== req.query.id.toString())
+    await Category.findByIdAndUpdate(req.query.categoryId, {
+        subcategories
+    },
 
-        // Update parent category's subcategories array
-        const category = await Category.findById(parentCategory);
-        category.subcategories.push(subcategory); // Push the whole subcategory object
-        await category.save();
+        {
+            new: true,
+            runValidators: true,
+            useFindAndModify: false,
+        }
+    )
+    res.status(200).json({
+        success: true,
+    })
 
-        res.json(subcategory);
-    } catch (error) {
-        res.status(500).json({ error: 'Error creating subcategory' });
-    }
-};
+})
+
+// Retrieve all categories
+exports.getAllCategories = catchAsyncErrors(async (req, res) => {
+
+    const categories = await Category.find();
+    res.json(categories);
+
+});
+
+// Update a category (e.g., to add or remove subcategories)
+exports.updateCategory = catchAsyncErrors(async (req, res) => {
+
+    const { subcategories } = req.body;
+    const category = await Category.findByIdAndUpdate(
+        req.params.categoryId,
+        { subcategories },
+        { new: true }
+    );
+    res.json(category);
+
+});
+
 

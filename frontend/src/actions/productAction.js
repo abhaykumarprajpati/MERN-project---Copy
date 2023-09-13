@@ -64,7 +64,7 @@ export const getProduct =
                 }
 
                 const { data } = await axios.get(link);
-                console.log(data);
+                console.log('All products', data);
 
                 dispatch({
                     type: ALL_PRODUCT_SUCCESS,
@@ -107,15 +107,14 @@ export const createProduct = (productData) => async (dispatch) => {
         dispatch({ type: NEW_PRODUCT_REQUEST });
 
         const config = {
-            headers: { "Content-Type": "application/json" },
+            headers: { "Content-Type": "multipart/form-data" }
         }
 
         const { data } = await axios.post(`/api/v1/admin/product/new`, productData, config);
-        console.log(data);
-        console.log("product action page")
+        
         dispatch({
             type: NEW_PRODUCT_SUCCESS,
-            // payload: data,
+            
             payload: data,
 
         })
