@@ -25,17 +25,17 @@ const ConfirmOrder = () => {
     const totalPrice = TtotalPrice.toString().split(".")[0]
 
     const address = `${shippingInfo.address} , ${shippingInfo.city} , ${shippingInfo.state}, ${shippingInfo.pinCode}, ${shippingInfo.country}`
+
     const navigate = useNavigate();
+
     const proceedToPayment = () => {
+
         const data = {
             subtotal,
             shippingCharges,
             tax,
             totalPrice,
         };
-        console.log(tax, totalPrice)
-        console.log(address)
-
 
         sessionStorage.setItem("orderInfo", JSON.stringify(data)); // session storage means on closing page data remove from sessionStorage
 
@@ -43,6 +43,8 @@ const ConfirmOrder = () => {
 
 
     }
+
+
 
 
 

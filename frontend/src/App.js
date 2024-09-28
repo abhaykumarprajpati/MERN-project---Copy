@@ -47,8 +47,10 @@ import NotFound from "./component/layout/NotFound";
 import Contact from "./component/Contact/Contact";
 import About from "./component/AboutUs/About";
 import ReturnForm from "./component/Order/ReturnForm";
+import CategoriesManagement from "./component/Categories/category";
 
-
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css'
 
 
 
@@ -68,12 +70,6 @@ function App() {
     }
     // const key = Stripe(stripeApikey).toString()
 
-
-
-
-
-
-
     useEffect(() => {
         WebFont.load({
             google: {
@@ -90,19 +86,12 @@ function App() {
 
 
 
-
-
-
-
-
-
-
     return (
         <Router>
             <Header />
 
             {/* {isAuthenticated && <UserOptions user={user} />} */}
-
+            <ToastContainer />
 
             <Routes>
 
@@ -111,6 +100,7 @@ function App() {
                 <Route exact path="/product/:id" element={<ProductDetails />} />
                 {/* for all products */}
                 <Route exact path="/products" element={<Products />} />
+                <Route exact path="/category" element={<CategoriesManagement />} />
                 {/* display search product */}
                 <Route path="/products/:keyword" element={<Products />} />
                 <Route exact path="/contact" element={<Contact />} />
@@ -160,15 +150,7 @@ function App() {
 
 
 
-                {/* {
-    stripeApikey && (
-        <Elements stripe={loadStripe(stripeApikey)}>
-            <Route exact path="/process/payment" element={<Payment />} />
 
-
-        </Elements>
-    )
-} */}
                 <Route exact path="/process/payment" element={
                     <Elements stripe={loadStripe(stripeApikey)}><Payment /></Elements>
                 } />
@@ -179,8 +161,6 @@ function App() {
 
 
 
-                {/* <Route path="/admin/dashboard" element={<Dashboard />} /> */}
-                {/* <Route path="/admin/dashboard" element={<ProtectedRoute component={<Dashboard />} />} /> */}
                 <Route
                     path="/admin/dashboard"
                     element={
@@ -204,7 +184,10 @@ function App() {
             </Routes>
 
             <Footer />
+
         </Router>
+
+
     );
 
 }

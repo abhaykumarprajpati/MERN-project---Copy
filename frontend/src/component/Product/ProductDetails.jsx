@@ -20,12 +20,6 @@ import {
 import { Rating } from "@material-ui/lab"
 import { NEW_REVIEW_RESET } from '../../constants/productConstants';
 
-import iphone from '../../images/iphone.jpg'
-import motorola from '../../images/motorola.jpg'
-import oppo from '../../images/oppo.jpg'
-
-
-
 
 
 

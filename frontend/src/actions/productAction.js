@@ -111,10 +111,10 @@ export const createProduct = (productData) => async (dispatch) => {
         }
 
         const { data } = await axios.post(`/api/v1/admin/product/new`, productData, config);
-        
+
         dispatch({
             type: NEW_PRODUCT_SUCCESS,
-            
+
             payload: data,
 
         })
@@ -242,7 +242,7 @@ export const getAllReviews = (id) => async (dispatch) => {
         const { data } = await axios.get(`/api/v1/reviews?id=${id}`);
 
 
-        console.log('get all reviews', data)
+        
 
         dispatch({
             type: ALL_REVIEW_SUCCESS,
@@ -251,6 +251,7 @@ export const getAllReviews = (id) => async (dispatch) => {
         })
 
     } catch (error) {
+
         dispatch({
             type: ALL_REVIEW_FAIL,
             payload: error.response.data.message,
@@ -260,6 +261,7 @@ export const getAllReviews = (id) => async (dispatch) => {
 };
 
 // Delete Review of a Product
+
 export const deleteReviews = (reviewId, productId) => async (dispatch) => {
     try {
 

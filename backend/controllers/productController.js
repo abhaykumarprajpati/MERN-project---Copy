@@ -53,6 +53,8 @@ exports.createProduct = catchAsyncErrors(async (req, res, next) => {
     //done earlier
     req.body.user = req.user.id;
 
+    console.log("reqbody: ",req.body)
+
     const product = await Product.create(req.body);// user sends data , so that product will create
 
 
@@ -66,7 +68,7 @@ exports.createProduct = catchAsyncErrors(async (req, res, next) => {
 // Read Product or find() or Get all products
 
 exports.getAllProducts = catchAsyncErrors(async (req, res, next) => {
-    console.log('******************', req.query)
+    console.log('req query******************', req.query)
     const resultPerPage = 8;
     const productsCount = await Product.countDocuments();
     const apiFeature = new ApiFeatures(Product.find(), req.query).search().filter().pagination(resultPerPage)
@@ -109,6 +111,23 @@ exports.getAdminProducts = catchAsyncErrors(async (req, res, next) => {
 
 }
 )
+
+// get all products based on selected subcategory 
+
+exports.getallsubcategories_cat = catchAsyncErrors(async (req, res, next) => {
+
+    const products = await Product.find({ subcategory: req.params.subcategory_Id })
+
+    if (!products) {
+        return next(new ErrorHandler("Products not found based on subcategory selected !", 404));
+    }
+    res.status(200).json({
+
+        success: true,
+        data: products,
+
+    })
+})
 
 
 
@@ -289,19 +308,20 @@ exports.createProductReview = catchAsyncErrors(async (req, res, next) => {
 // Get All Reviews of a product
 
 exports.getProductReviews = catchAsyncErrors(async (req, res, next) => {
+
     const product = await Product.findById(req.query.id);
-    console.log("Get Product Review ")
-
-
-
+   
     if (!product) {
 
         return next(new ErrorHandler("Product not found", 404));
     }
+
     res.status(200).json({
         success: true,
         reviews: product.reviews,
     });
+
+
 });
 
 //Delete Reviews

@@ -21,6 +21,6 @@ root.render(
 
       <App />
     </AlertProvider>
-
+    
   </Provider>
 );

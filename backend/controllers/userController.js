@@ -27,6 +27,12 @@ const cloudinary = require("cloudinary");
 
 exports.registerUser = catchAsyncErrors(async (req, res, next) => {
 
+    // const existingUser = await User.findOne({ email });
+
+    // if (existingUser) {
+    //     return res.status(400).json({ error: 'User already exists with this email' });
+    // }
+
     const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
         folder: "avatars",
         width: 150,
@@ -322,13 +328,12 @@ exports.updateUserRole = catchAsyncErrors(async (req, res, next) => {
         return next(new ErrorHandler(`User does not exist with Id: ${req.params.id}`))
 
     }
+
     const newUserData = {
         name: req.body.name,
         email: req.body.email,
         role: req.body.role,
     };
-
-
 
     await User.findByIdAndUpdate(req.params.id, newUserData, {
         new: true,
@@ -342,6 +347,8 @@ exports.updateUserRole = catchAsyncErrors(async (req, res, next) => {
 
     });
 });
+
+
 
 
 

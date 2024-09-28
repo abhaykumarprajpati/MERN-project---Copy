@@ -79,6 +79,8 @@ exports.getSingleOrder = catchAsyncErrors(async (req, res, next) => {
         "user",
         "name email"
     );
+    // const order = await Order.findById(req.params.id)
+    // const order = await Order.findById(req.params.id).select('name email').populate('user');
 
     console.log('Get single order **********************', order)
     if (!order) {

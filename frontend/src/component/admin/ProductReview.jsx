@@ -19,7 +19,7 @@ import { DELETE_REVIEW_RESET } from "../../constants/productConstants";
 
 const ProductReviews = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const alert = useAlert();
 
   const { error: deleteError, isDeleted } = useSelector(
@@ -29,7 +29,6 @@ const ProductReviews = () => {
   const { error, reviews, loading } = useSelector(
     (state) => state.productReviews
   );
-  console.log(reviews)
 
   const [productId, setProductId] = useState("");
 

@@ -41,19 +41,15 @@ const Products = () => {
 
     const [currentPage, setCurrentPage] = useState(1);
 
-
     const [price, setPrice] = useState([0, 25000]);
-
 
 
     const [selectedItem, setSelectedItem] = useState([]);
 
+
+
     const [ratings, setRatings] = useState(0);
     const [word, setword] = useState("");
-
-
-
-    console.log('selectedItem', selectedItem)
 
 
     const { products,
@@ -68,11 +64,11 @@ const Products = () => {
 
     const handleexchange = (item) => {
         if (selectedItem.includes(item)) {
-            console.log('selectedItem.includes(item)', item);
+
             setSelectedItem(selectedItem.filter((i) => i !== item));
 
         } else {
-            console.log('selectedItem.includes(item)2', item);
+
 
             setSelectedItem([...selectedItem, item]);
 
@@ -102,27 +98,67 @@ const Products = () => {
 
     let count = filteredProductsCount;
 
-    
 
+
+    
+    
     useEffect(() => {
+
         if (error) {
             alert.error(error);
             dispatch(clearErrors());
         }
 
         if (selectedItem.length === 0) {
-            
+
             dispatch(getProduct(keyword, currentPage, price, null, ratings));
 
         } else {
-
-
-
             dispatch(getProduct(keyword, currentPage, price, selectedItem, ratings));
 
         }
 
     }, [dispatch, keyword, currentPage, price, selectedItem, ratings, alert, error]);
+
+
+    const [categories, setCategories] = useState([]);
+    const [subcategories, setSubcategories] = useState([]);
+    const [expandedCategories, setExpandedCategories] = useState([]);
+    const [filteredSubcategories, setFilteredSubcategories] = useState([]);
+    const [selectedCategoryId, setSelectedCategoryId] = useState(null);
+
+    useEffect(() => {
+        // Fetch categories data from the categories API
+        axios.get('/api/v1/getAllCategories')
+            .then(response => {
+                console.log('getallcategory_1', response?.data);
+                setCategories(response.data);
+            })
+            .catch(error => {
+                console.error('Error fetching categories data:', error);
+            });
+
+        // Fetch subcategories data from the subcategories API
+        axios.get('/api/v1/getAllsubCategories')
+            .then(response => {
+                console.log('getallcategory_2', response?.data);
+                setSubcategories(response.data);
+            })
+            .catch(error => {
+                console.error('Error fetching subcategories data:', error);
+            });
+    }, []);
+
+    const onselectCategory = (categoryId) => {
+        console.log('getallcategory_idcheck', categoryId);
+        setSelectedCategoryId(categoryId);
+
+        // Filter subcategories based on the selected category
+        const filteredSubcategories = subcategories.filter(item => item.parentCategoryId === categoryId);
+        setFilteredSubcategories(filteredSubcategories);
+
+        console.log('getallcategory_new', filteredSubcategories);
+    };
 
 
 
@@ -139,10 +175,6 @@ const Products = () => {
         }
 
     }
-
-
-
-
 
     return (
         <>
@@ -170,31 +202,41 @@ const Products = () => {
 
                                 <Typography>Categories</Typography>
 
-                                <ul className="selectedItemBox">
+                                {/* <div class="flex-shrink-0 p-3 bg-white" style={{ width: "280px" }}> */}
+                                    <a href="/" class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none border-bottom">
+                                        <svg class="bi pe-none me-2" width="30" height="24"></svg>
+                                        <span class="fs-5 fw-semibold">Collapsible</span>
+                                    </a>
 
-                                    {categories.map((category) => (
-                                        <li className="" key={Object.keys(category)}>
-                                            {Object.keys(category)}
-                                            <ul style={{ "listStyle": "none" }}>
-                                                {category[Object.keys(category)].map((item) => (
-                                                    <li key={item}>
-                                                        <label>
-                                                            <input
-                                                                type="checkbox"
-                                                                checked={selectedItem.includes(item)}
-                                                                onChange={() => handleexchange(item, category)}
+                                    <ul className="list-unstyled ps-0">
+                                        {categories?.map((category, index) => (
+                                            <li className="mb-1" key={category._id}>
+                                                <button
+                                                    className={`btn btn-toggle d-inline-flex align-items-center rounded border-0 ${expandedCategories.includes(category._id) ? '' : 'collapsed'}`}
+                                                    data-bs-toggle="collapse"
+                                                    data-bs-target={`#${category?.name}-collapse`}
+                                                    aria-expanded={expandedCategories.includes(category._id)}
+                                                    onClick={() => onselectCategory(category._id)}
+                                                >
+                                                    {category.name}
+                                                </button>
+                                                <div className={`collapse ${expandedCategories.includes(category._id) ? 'show' : ''}`} id={`${category?.name}-collapse`}>
+                                                    {selectedCategoryId === category._id && (
+                                                        <ul className="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                                                            {filteredSubcategories?.map((item, index) => (
+                                                                <li key={item._id}>{item.name}</li>
+                                                            ))}
+                                                        </ul>
+                                                    )}
+                                                </div>
+                                            </li>
+                                        ))}
+                                    </ul>
 
-                                                            />
-                                                            {item}
-                                                        </label>
-                                                    </li>
-                                                ))}
-                                            </ul>
-                                        </li>
-                                    ))}
 
 
-                                </ul>
+
+                                {/* </div> */}
 
 
 
@@ -241,15 +283,7 @@ const Products = () => {
                                     }
 
 
-
-
-
-
                                 </div>
-
-
-
-
 
                             </div>
                             <div className="paginationBox ">
@@ -273,21 +307,19 @@ const Products = () => {
                             </div>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
                         </div>
 
                     </div>
+
+
+
+
+
+
+
+
+
+
 
                 </>
             )};

@@ -19,7 +19,7 @@ const sendToken = (user, statusCode, res) => {
         ),
         httpOnly: true,
     };
-    console.log('options', options)
+    
     res.status(statusCode).cookie("token", token, options).json({
         success: true,
         user,

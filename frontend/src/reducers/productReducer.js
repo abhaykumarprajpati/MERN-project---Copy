@@ -46,11 +46,13 @@ export const productsReducer = (state = { products: [] }, action) => {
     switch (action.type) {
         case ALL_PRODUCT_REQUEST:
         case ADMIN_PRODUCT_REQUEST:
+            console.log('product_request_reducer',state);
             return {
                 loading: true,
                 products: [],
             };
         case ALL_PRODUCT_SUCCESS:
+            console.log('product_request_success',state);
             return {
                 loading: false,
                 products: action.payload.products,
@@ -93,7 +95,7 @@ export const newProductReducer = (state = { product: {} }, action) => {
                 loading: true,
             }
         case NEW_PRODUCT_SUCCESS:
-            console.log("product reducer page")
+
             return {
                 loading: false,
                 success: action.payload.success,

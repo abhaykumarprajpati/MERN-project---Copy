@@ -102,75 +102,64 @@ const UpdateUser = () => {
 
                     <main className='col-md-9 ms-sm-auto col-lg-10 px-md-4 productListContainer'>
 
-                        {loading ? <Loader /> : <form className='createProductForm'
+                        {loading ? <Loader /> :
 
-                            onSubmit={updateUserSubmitHandler}
+                            <form className='createProductForm'
 
-                        >
-                            <h1>Update User</h1>
+                                onSubmit={updateUserSubmitHandler}
 
-
-                            <div>
-
-                                <i className="fa-solid fa-user"></i>
-                                <input type="text"
-                                    placeholder='Name'
-                                    required
-                                    value={name}
-                                    onChange={(e) => setName(e.target.value)}
-
-                                />
-                            </div>
-                            <div>
-                                <i className="fa-solid fa-envelope"></i>
-                                <input type="email"
-                                    placeholder='Email'
-                                    required
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-
-                                />
-                            </div>
+                            >
+                                <h1>Update User</h1>
 
 
-                            <div>
-                                <i className="fa-solid fa-hashtag"></i>
-                                <select value={role} onChange={(e) => setRole(e.target.value)}>
+                                <div>
 
-                                    <option value="">Choose Role</option>
-                                    <option value="admin">Admin</option>
-                                    <option value="user">User</option>
+                                    <i className="fa-solid fa-user"></i>
+                                    <input type="text"
+                                        placeholder='Name'
+                                        required
+                                        value={name}
+                                        onChange={(e) => setName(e.target.value)}
 
-                                </select>
-                            </div>
+                                    />
+                                </div>
+                                <div>
+                                    <i className="fa-solid fa-envelope"></i>
+                                    <input type="email"
+                                        placeholder='Email'
+                                        required
+                                        value={email}
+                                        onChange={(e) => setEmail(e.target.value)}
 
-
-
-
-
-
-
-                            <Button id='createProductBtn'
-                                type='submit'
-                                disabled={updateLoading ? true : false || role === "" ? true : false}
-
-                            >Update</Button>
-
-
-                        </form>}
+                                    />
+                                </div>
 
 
+                                <div>
+                                    <i className="fa-solid fa-hashtag"></i>
+                                    <select value={role} onChange={(e) => setRole(e.target.value)}>
+
+                                        <option value="">Choose Role</option>
+                                        <option value="admin">Admin</option>
+                                        <option value="user">User</option>
+
+                                    </select>
+                                </div>
+
+                                <Button id='createProductBtn'
+                                    type='submit'
+                                    disabled={updateLoading ? true : false || role === "" ? true : false}
+
+                                >
+                                    Update
+                                </Button>
 
 
+                            </form>}
 
 
                     </main>
-
-
-
                 </div>
-
-
 
             </div>
         </>
@@ -178,6 +167,21 @@ const UpdateUser = () => {
 }
 
 export default UpdateUser
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

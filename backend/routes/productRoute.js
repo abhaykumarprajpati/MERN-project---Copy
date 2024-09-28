@@ -3,7 +3,9 @@ const { getAllProducts,
     createProduct,
     updateProduct,
     deleteProduct,
-    getProductDetails, createProductReview, getProductReviews, deleteReview, getAdminProducts } = require("../controllers/productController");
+    getProductDetails, createProductReview, getProductReviews, deleteReview, getAdminProducts,
+    getallsubcategories_cat
+} = require("../controllers/productController");
 const { isAuthenticatedUser, authorizeRoles } = require("../middleware/auth");
 
 
@@ -12,7 +14,7 @@ const router = express.Router();
 
 
 router.route('/products').get(getAllProducts);
-
+router.route(`/products/:subcategory_Id`).get(isAuthenticatedUser, getallsubcategories_cat)
 router.route("/admin/products").get(isAuthenticatedUser, authorizeRoles("admin"), getAdminProducts);
 
 

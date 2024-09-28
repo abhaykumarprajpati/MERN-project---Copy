@@ -11,16 +11,11 @@ export const cartReducer = (state = { cartItems: [], shippingInfo: {} }, action)
 
             const item = action.payload;
 
-
             const isItemExist = state.cartItems.find((i) =>
                 i.product === item.product
 
             )
 
-
-
-            console.log(item);
-            console.log(item.product);
 
             if (isItemExist) {
                 return {
@@ -47,7 +42,7 @@ export const cartReducer = (state = { cartItems: [], shippingInfo: {} }, action)
 
 
         case REMOVE_CART_ITEM:
-            console.log('again debug cartreducer 2')
+
             return {
                 ...state,
 

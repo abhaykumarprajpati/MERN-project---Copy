@@ -36,6 +36,9 @@ const NewProduct = () => {
     const [newCategory, setNewCategory] = useState([])
     const [subcategories, setsubcategories] = useState([])
     const [selectedCategoryName, setSelectedCategoryName] = useState("")
+    const [parentCategoryId, setParentCategoryId] = useState("")
+    const [subcategoryId, setSubcategoryId] = useState("")
+    const [filteredSubcategories, setFilteredSubcategories] = useState([]);
 
 
 
@@ -77,6 +80,18 @@ const NewProduct = () => {
         }
     }, [dispatch, alert, error, navigate, success])
 
+    useEffect(() => {
+
+        axios.get('/api/v1/getAllsubCategories')
+            .then(response => {
+                console.log('getallcategory_2', response?.data);
+                setsubcategories(response.data);
+            })
+            .catch(error => {
+                console.error('Error fetching subcategories data:', error);
+            });
+    }, []);
+
     const createProductSubmitHandler = (e) => {
         e.preventDefault();
 
@@ -85,6 +100,8 @@ const NewProduct = () => {
         myForm.set("name", name);
         myForm.set("price", price);
         myForm.set("description", description);
+        myForm.set("parentcategory", parentCategoryId);
+        myForm.set("subcategory", subcategoryId)
         // myForm.set("category", category);
         // myForm.set("selectedCategory", selectedCategory)
         // myForm.set("selectedItem", selectedItem)
@@ -125,16 +142,21 @@ const NewProduct = () => {
 
     async function handleCategoryChange(event) {
         console.log('checking category', event.target.value)
+        setParentCategoryId(event.target.value)
+        // const { data } = await axios.get(`/api/v1/subcategory/${event.target.value}`);
+        // console.log('subcategories based on parent id', data?.data)
 
-        const { data } = await axios.get(`/api/v1/subcategory/${event.target.value}`);
-        console.log('subcategories based on parent id', data?.data)
-        
-        setsubcategories(data?.data);
+        // setsubcategories(data?.data);
+        const filteredSubcategories = subcategories.filter(item => item.parentCategoryId === event.target.value);
+        console.log('filteredcategories', filteredSubcategories);
+        setFilteredSubcategories(filteredSubcategories);
         setselectedItem(true)
         setcategory("");
     }
 
     function handleItemClick(item) {
+        console.log('subcategoryid', item);
+        setSubcategoryId(item)
         setcategory(item);
     }
 
@@ -210,10 +232,10 @@ const NewProduct = () => {
                                         <p>Items in {selectedCategoryName} category:</p>
                                         <select className='category' onChange={(e) => handleItemClick(e.target.value)}>
                                             <option value=""> -- Select an item -- </option>
-                                            {subcategories?.map((category) => (
+                                            {filteredSubcategories?.map((category, index) => (
 
                                                 <option key={category._id} value={category._id}>
-                                                    {category.sub_category}
+                                                    {category.name}
                                                 </option>
                                             ))}
                                         </select>

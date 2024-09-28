@@ -32,10 +32,20 @@ const productSchema = new mongoose.Schema({
             },
         },
     ],
-   
+
     selectedItem: {
         type: String,
-        required: [true, "Please enter product selectedItem"],
+        // required: [true, "Please enter product selectedItem"],
+    },
+    parentcategory: {
+        type: mongoose.Schema.ObjectId,
+        ref: "Category",
+        required: true,
+    },
+    subcategory: {
+        type: mongoose.Schema.ObjectId,
+        ref: "Subcategory",
+        // required: true,
     },
     Stock: {
         type: Number,
@@ -76,10 +86,16 @@ const productSchema = new mongoose.Schema({
         ref: "User",
         required: true,
     },
-    createdAt: {
-        type: Date,
-        default: Date.now
-    }
-})
+    // createdAt: {
+    //     type: Date,
+    //     default: Date.now
+    // }
+} ,
+ { timestamps: { createdAt: 'created_at' } }
+// {
+//     // Make Mongoose use Unix time (seconds since Jan 1, 1970)
+//     timestamps: { currentTime: () => Math.floor(Date.now() / 1000) }
+//   }
+)
 
 module.exports = mongoose.model("Product", productSchema)
