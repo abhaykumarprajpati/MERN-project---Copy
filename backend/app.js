@@ -4,7 +4,7 @@ const cookieParser = require("cookie-parser")
 const fileUpload = require("express-fileupload")
 // const dotenv = require("dotenv");
 const path = require('path')
-
+const cors = require('cors')
 
 
 //Config
@@ -28,6 +28,14 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // app.use(bodyParser.json({ limit: '50mb' }));
 app.use(fileUpload());
 
+app.use(cors(
+    {
+        // origin:["https://mern-project-api-ruddy.vercel.app/"],
+        origin:[""],
+        methods:['POST',"GET",'PUT','PATCH','DELETE'],
+        credentials:true
+    }
+))
 
 //Route Imports
 
