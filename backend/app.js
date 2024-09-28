@@ -28,20 +28,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // app.use(bodyParser.json({ limit: '50mb' }));
 app.use(fileUpload());
 
-app.use(cors(
-    {
-        // origin:["https://mern-project-api-ruddy.vercel.app/"],
-        origin:"*",
-        methods:['POST',"GET",'PUT','PATCH','DELETE'],
-        credentials:true
-    }
-))
 
 //Route Imports
-
-app.get("/",(req,res)=>{
-    res.json("hello")
-})
 
 const product = require("./routes/productRoute");
 const user = require("./routes/userRoute");
@@ -58,11 +46,11 @@ app.use("/api/v1", payment);
 app.use("/api/v1", category);
 app.use("/api/v1", subcategory)
 
-// app.use(express.static(path.join(__dirname, "../frontend/build")))
+app.use(express.static(path.join(__dirname, "../frontend/build")))
 
-// app.get('*', (req, res) => {
-//     res.sendFile(path.resolve(__dirname, "../frontend/build/index.html"))
-// })
+app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, "../frontend/build/index.html"))
+})
 
 //Middleware for Errors
 app.use(errorMiddleware)
