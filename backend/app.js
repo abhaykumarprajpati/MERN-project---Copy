@@ -39,6 +39,10 @@ app.use(cors(
 
 //Route Imports
 
+app.get("/",(req,res)=>{
+    res.json("hello")
+})
+
 const product = require("./routes/productRoute");
 const user = require("./routes/userRoute");
 const order = require("./routes/orderRoute");
