@@ -30,8 +30,8 @@ app.use(fileUpload());
 
 app.use(cors(
     {
-        // origin:["https://mern-project-api-ruddy.vercel.app/"],
-        origin:[""],
+        origin:["https://mern-project-api-ruddy.vercel.app/"],
+        // origin:[""],
         methods:['POST',"GET",'PUT','PATCH','DELETE'],
         credentials:true
     }
