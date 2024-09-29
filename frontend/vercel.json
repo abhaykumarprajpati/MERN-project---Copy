@@ -1,5 +1,5 @@
 {
-    "installCommand": "npm install --save-dev ajv@^8",                 
+    "installCommand": "npm install --force",                 
 
     "rewrites": [
         {
