@@ -1,12 +1,12 @@
-const { createProxyMiddleware } = require('http-proxy-middleware')
+// const { createProxyMiddleware } = require('http-proxy-middleware')
 
-module.exports = function (app) {
-    app.use(
-        // createProxyMiddleware("/api/v1/", { target: "http://localhost:5000/", secure: false, })
-        createProxyMiddleware("/api/v1/", { target: "https://mern-project-api-ruddy.vercel.app/", secure: false, })
-    );
-};
+// module.exports = function (app) {
+//     app.use(
+//         // createProxyMiddleware("/api/v1/", { target: "http://localhost:5000/", secure: false, })
+//         createProxyMiddleware("/api/v1/", { target: "https://mern-project-api-ruddy.vercel.app/", secure: false, })
+//     );
+// };
 
-// "proxy": " http://192.168.112.129:5000"
+// // "proxy": " http://192.168.112.129:5000"
 
 
