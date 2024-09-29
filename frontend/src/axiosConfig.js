@@ -10,6 +10,6 @@ const axiosInstance = axios.create({
   },
 });
 
-// You can set up interceptors for requests or responses here if needed
+// You can set up interceptors for requests or responses here if neededm
 
 export default axiosInstance;
