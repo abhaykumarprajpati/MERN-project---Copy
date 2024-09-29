@@ -46,8 +46,7 @@ import {
 
 // import axios from "axios";
 
-import axios from '../../axiosConfig'; // Import the Axios instance
-
+import axios from "../axiosConfig";
 
 
 

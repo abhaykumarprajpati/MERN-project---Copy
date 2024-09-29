@@ -1,4 +1,4 @@
-import axios from '../../axiosConfig'; // Import the Axios instance
+import axios from "../axiosConfig";
 // import { config } from "dotenv";
 
 

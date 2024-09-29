@@ -28,7 +28,7 @@ import {
     CLEAR_ERRORS,
 } from "../constants/orderConstants";
 
-import axios from '../../axiosConfig'; // Import the Axios instance
+import axios from "../axiosConfig";
 
 
 //Create Order

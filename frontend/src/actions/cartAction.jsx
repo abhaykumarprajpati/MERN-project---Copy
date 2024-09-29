@@ -3,7 +3,7 @@ import { ADD_TO_CART, REMOVE_CART_ITEM, SAVE_SHIPPING_INFO } from "../constants/
 
 
 
-import axios from '../../axiosConfig'; // Import the Axios instance
+import axios from "../axiosConfig";
 
 
 

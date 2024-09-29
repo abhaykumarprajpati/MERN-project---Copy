@@ -1,5 +1,5 @@
 import { RETURN_ORDERS_REQUEST, RETURN_ORDERS_SUCCESS, RETURN_ORDERS_FAIL } from "../constants/orderConstants";
-import axios from "axios";
+import axios from "../axiosConfig";
 
 
 export const returnproduct = (productId, reason, returnDate) => async (dispatch) => {
