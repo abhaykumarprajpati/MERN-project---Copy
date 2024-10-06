@@ -4,7 +4,7 @@ const cookieParser = require("cookie-parser")
 const fileUpload = require("express-fileupload")
 // const dotenv = require("dotenv");
 const path = require('path')
-// const cors = require('cors')
+const cors = require('cors')
 
 
 //Config
@@ -41,6 +41,22 @@ const order = require("./routes/orderRoute");
 const payment = require("./routes/paymentRoute");
 const category = require("./routes/categoryRoute");
 const subcategory = require("./routes/subcategoryRoute")
+
+
+app.use(
+    cors({
+      // origin: "*",
+      // origin: 'http://localhost:3000',
+      origin: [
+        
+        "http://localhost:3000",
+        "http://localhost:8080",
+        
+      ],
+      methods: "GET,POST,PUT,DELETE,PATCH",
+      credentials: true,
+    })
+  );
 
 
 app.use("/api/v1", product);
