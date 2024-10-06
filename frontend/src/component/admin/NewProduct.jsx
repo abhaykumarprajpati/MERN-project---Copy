@@ -9,7 +9,8 @@ import MetaData from '../layout/MetaData'
 import { NEW_PRODUCT_RESET } from '../../constants/productConstants'
 import Offcanvas from './Offcanvas'
 import Sidebar from './Sidebar'
-import axios from 'axios'
+// import axios from 'axios'
+import axios from '../../axiosConfig'
 
 
 
