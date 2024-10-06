@@ -45,15 +45,15 @@ const subcategory = require("./routes/subcategoryRoute")
 
 app.use(
     cors({
-      // origin: "*",
+      origin: "*",
       // origin: 'http://localhost:3000',
-      origin: [
+      // origin: [
         
-        "http://localhost:3000",
-        "http://localhost:8080",
-        "https://mern-project-frontend-sigma.vercel.app/"
+      //   "http://localhost:3000",
+      //   "http://localhost:8080",
+      //   "https://mern-project-frontend-sigma.vercel.app/"
         
-      ],
+      // ],
       methods: "GET,POST,PUT,DELETE,PATCH",
       credentials: true,
     })
