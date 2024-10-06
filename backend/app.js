@@ -29,6 +29,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(fileUpload());
 
 
+app.get('/',(req,res)=>{
+    res.send('hello world')
+})
+
 //Route Imports
 
 const product = require("./routes/productRoute");
